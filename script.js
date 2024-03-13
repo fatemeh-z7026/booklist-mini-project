@@ -39,4 +39,11 @@ addBtn.addEventListener("click", function (event) {
 function setIntoLocalStorage(bookArray) {
   localStorage.setItem("bookList", JSON.stringify(bookArray));
   booksGenerator(bookArray);
+  emptyInputs();
+}
+
+function emptyInputs() {
+  bookTitle.value = "";
+  bookAuthor.value = "";
+  bookYear.value = "";
 }
