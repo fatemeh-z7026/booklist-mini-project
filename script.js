@@ -7,6 +7,7 @@ let addBtn = $.querySelector(".add-btn");
 let books = [];
 
 function booksGenerator(bookArray) {
+  booksContainer.innerHTML = "";
   bookArray.forEach(function (book) {
     let newTr = $.createElement("tr");
 
@@ -26,14 +27,23 @@ function booksGenerator(bookArray) {
 
 addBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  let bookNewObj = {
-    id: books.length + 1,
-    title: bookTitle.value,
-    author: bookAuthor.value,
-    year: bookYear.value,
-  };
-  books.push(bookNewObj);
-  setIntoLocalStorage(books);
+
+  if (
+    bookTitle.value === "" ||
+    bookAuthor.value === "" ||
+    bookYear.value === ""
+  ) {
+    alert("لطفا همه اینپوت ها را پر نمایید");
+  } else {
+    let bookNewObj = {
+      id: books.length + 1,
+      title: bookTitle.value,
+      author: bookAuthor.value,
+      year: bookYear.value,
+    };
+    books.push(bookNewObj);
+    setIntoLocalStorage(books);
+  }
 });
 
 function setIntoLocalStorage(bookArray) {
