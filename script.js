@@ -6,23 +6,37 @@ let booksContainer = $.getElementById("book-list");
 let addBtn = $.querySelector(".add-btn");
 let books = [];
 
-function booksGenerator() {
-  let newTr = $.createElement("tr");
+function booksGenerator(bookArray) {
+  bookArray.forEach(function (book) {
+    let newTr = $.createElement("tr");
 
-  let newTitle = $.createElement("td");
-  newTitle.innerHTML = bookTitle.value;
+    let newTitle = $.createElement("td");
+    newTitle.innerHTML = book.title;
 
-  let newAuthor = $.createElement("td");
-  newAuthor.innerHTML = bookAuthor.value;
+    let newAuthor = $.createElement("td");
+    newAuthor.innerHTML = book.author;
 
-  let newYear = $.createElement("td");
-  newYear.innerHTML = bookYear.value;
+    let newYear = $.createElement("td");
+    newYear.innerHTML = book.year;
 
-  newTr.append(newTitle, newAuthor, newYear);
-  booksContainer.append(newTr);
+    newTr.append(newTitle, newAuthor, newYear);
+    booksContainer.append(newTr);
+  });
 }
 
 addBtn.addEventListener("click", function (event) {
   event.preventDefault();
-  booksGenerator();
+  let bookNewObj = {
+    id: books.length + 1,
+    title: bookTitle.value,
+    author: bookAuthor.value,
+    year: bookYear.value,
+  };
+  books.push(bookNewObj);
+  setIntoLocalStorage(books);
 });
+
+function setIntoLocalStorage(bookArray) {
+  localStorage.setItem("bookList", JSON.stringify(bookArray));
+  booksGenerator(bookArray);
+}
